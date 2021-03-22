@@ -141,3 +141,59 @@ class CompoundButton extends StatelessWidget {
     );
   }
 }
+
+class CommandBarButton extends StatelessWidget {
+  final double borderradius = 1.0;
+  final bool border;
+
+  final String title;
+  final IconData icon;
+  final Function onPressed;
+  final Color color;
+  final Color textColor;
+  final Color borderColor;
+  
+  final BoxDecoration buttondecoration = new BoxDecoration(
+    borderRadius: BorderRadius.circular(5),
+  );
+
+  CommandBarButton(this.title, this.icon,{Key key, this.onPressed, this.color = Colors.white, this.textColor = const Color.fromRGBO(64, 63, 62, 1), this.border = true, this.borderColor = Colors.black});
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      decoration: new BoxDecoration(
+        borderRadius: BorderRadius.circular(borderradius),
+        color: Colors.transparent,
+      ),
+      child: new Material(
+        child: new InkWell(
+          onTap: onPressed != null? onPressed: () {},
+          child: new Container(
+            padding: EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                icon != null? Icon(icon, color: Colors.blue, size: 20,): Container(),
+                Container(
+                  margin: EdgeInsets.only(left: icon != null? 5: 0),
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      color: textColor,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: 0.3
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            
+          ),
+        ),
+        color: Colors.transparent,
+      ),
+    );
+  }
+}
+

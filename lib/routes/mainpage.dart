@@ -62,7 +62,14 @@ class MainPage extends StatelessWidget {
                     CompoundButton.standard("Standard", "This is a secondary text."),
                   ],
                 ),
-                
+                SizedBox(height: 20,),
+                subject("Command Bar Button"),
+                Row(
+                  children: [                      
+                    SizedBox(width: 20,),
+                    CommandBarButton("Primary", Icons.mail_outline),
+                  ],
+                ),
               ],
             )
           ),
