@@ -12,10 +12,14 @@ class FluentUIDesign extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPaintSizeEnabled = false;
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           color: Colors.white,
+          iconTheme: IconThemeData(
+            color: Colors.black
+          )
         ),
         primarySwatch: Colors.blue,
       ),
