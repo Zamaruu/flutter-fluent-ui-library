@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "name": "fluent_ui_design (Flutter)",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}

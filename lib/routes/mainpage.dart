@@ -1,4 +1,5 @@
 import 'package:fluent_ui_design/ui/fluentui/fluentbutton.dart';
+import 'package:fluent_ui_design/ui/fluentui/fluentdocumentcard.dart';
 import 'package:fluent_ui_design/ui/fluentui/fluenttextfield.dart';
 import 'package:fluent_ui_design/ui/widgets/drawer.dart';
 import 'package:fluent_ui_design/ui/widgets/navigationappbar.dart';
@@ -18,7 +19,7 @@ class MainPage extends StatelessWidget {
         title,
         style: TextStyle(
           color: Colors.black,
-          fontSize: 25
+          fontSize: 21
         )
       ),
     );
@@ -28,10 +29,11 @@ class MainPage extends StatelessWidget {
   Container detailTile(String title, List<Widget> elements){
     return Container(
       margin: const EdgeInsets.all(25),
-      color: Colors.white24,
+      color: Colors.grey[200],
       height: 600,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
             flex: 2,
@@ -112,6 +114,18 @@ class MainPage extends StatelessWidget {
                   children: [                      
                     SizedBox(width: 20,),
                     BasicTextField("Multiline Input", sampleController, multiline: true,)
+                  ],
+                ),
+              ]
+            ),
+            detailTile(
+              "Document Cards", 
+              [
+                subject("Default Document Card"),
+                Row(
+                  children: [                      
+                    SizedBox(width: 20,),
+                    DocumentCard("Large_File_Name.jpg", "Cercei", "Lannister", imgURL: "https://www.myremodeling.net/wp-content/uploads/2017/03/remodeling-the-living-roomshutterstock_360087893-min.jpg",)
                   ],
                 ),
               ]

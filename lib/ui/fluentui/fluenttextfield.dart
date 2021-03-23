@@ -9,7 +9,8 @@ class BasicTextField extends StatefulWidget {
   final bool obscureText;
   final bool multiline;
   final TextEditingController controller;
-
+  final Color backgroundColor;
+  
   const BasicTextField(
     this.label, 
     this.controller,
@@ -20,7 +21,8 @@ class BasicTextField extends StatefulWidget {
       this.prefixText, 
       this.placeholderText, 
       this.width = 250.0, 
-      this.multiline = false,
+      this.multiline = false, 
+      this.backgroundColor = Colors.white,
     }
   ) : super(key: key);
 
@@ -48,6 +50,7 @@ class _BasicTextFieldState extends State<BasicTextField> {
         ),
         Container(
           width: widget.width,
+          color: widget.backgroundColor,
           child: TextField(
             controller: widget.controller,
             readOnly: widget.readOnly,
@@ -64,25 +67,17 @@ class _BasicTextFieldState extends State<BasicTextField> {
               contentPadding: EdgeInsets.all(9),
               hintText: widget.placeholderText,
               prefixText: widget.prefixText,
-              suffix: widget.obscureText? Container(
-                width: 30,
-                alignment: Alignment.centerRight,
-                child: IconButton(
-                  iconSize: 15,
-                  splashRadius: 15,
-                  padding: EdgeInsets.all(0),
-                  constraints: BoxConstraints(
-                    maxHeight: 40,
-                    minHeight: 30
-                  ),
-                  color: Colors.blue,
-                  icon: Icon(obscureText? Icons.visibility_outlined: Icons.visibility_off_outlined),
-                  onPressed: (){
-                    setState(() {
-                      obscureText = !obscureText;
-                    });
-                  },
-                ),
+              suffixIcon: widget.obscureText? IconButton(
+                iconSize: 20,
+                splashRadius: 15,
+                padding: EdgeInsets.all(0),
+                color: Colors.blue,
+                icon: Icon(obscureText? Icons.visibility_outlined: Icons.visibility_off_outlined),
+                onPressed: (){
+                  setState(() {
+                    obscureText = !obscureText;
+                  });
+                },
               ):null,
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
