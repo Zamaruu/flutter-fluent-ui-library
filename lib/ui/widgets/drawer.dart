@@ -5,13 +5,10 @@ class NavigationDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
+        padding: EdgeInsets.all(8.0),
         children: [
-          DrawerHeader(
-            child: Container(
-              alignment: Alignment.bottomLeft,
-              child: Text("Fluent UI Flutter"),
-            ),
-          )
+          Image.asset("images/microsoft_logo.png"),
+          Text("Fluent UI Flutter"),
         ],
       ),
     );

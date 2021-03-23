@@ -1,4 +1,5 @@
 import 'package:fluent_ui_design/ui/fluentui/fluentbutton.dart';
+import 'package:fluent_ui_design/ui/fluentui/fluenttextfield.dart';
 import 'package:fluent_ui_design/ui/widgets/drawer.dart';
 import 'package:fluent_ui_design/ui/widgets/navigationappbar.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ class MainPage extends StatelessWidget {
     color: Colors.black,
     fontSize: 25
   );
+  TextEditingController sampleController = new TextEditingController();
 
   Padding subject (String title){
     return Padding(
@@ -23,10 +25,10 @@ class MainPage extends StatelessWidget {
   } 
     
 
-  Container detailTile(String title){
+  Container detailTile(String title, List<Widget> elements){
     return Container(
       margin: const EdgeInsets.all(25),
-      color: Colors.grey[300],
+      color: Colors.white24,
       height: 600,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +44,23 @@ class MainPage extends StatelessWidget {
             flex: 8,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: elements
+            )
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container body(){
+    return Container(
+      child: Scrollbar(
+        isAlwaysShown: true,
+        child: ListView(
+          children: [
+            detailTile(
+              "Buttons",
+              [
                 subject("Default Button"),
                 Row(
                   children: [                      
@@ -70,21 +88,34 @@ class MainPage extends StatelessWidget {
                     CommandBarButton("Primary", Icons.mail_outline),
                   ],
                 ),
-              ],
-            )
-          ),
-        ],
-      ),
-    );
-  }
-
-  Container body(){
-    return Container(
-      child: Scrollbar(
-        isAlwaysShown: true,
-        child: ListView(
-          children: [
-            detailTile("Buttons")
+              ]
+            ),
+            detailTile(
+              "Text Fields", 
+              [
+                subject("Basic Text Field"),
+                Row(
+                  children: [                      
+                    SizedBox(width: 20,),
+                    BasicTextField("Standard", sampleController)
+                  ],
+                ),
+                subject("Basic Password Text Field"),
+                Row(
+                  children: [                      
+                    SizedBox(width: 20,),
+                    BasicTextField("Password", sampleController, obscureText: true,)
+                  ],
+                ),
+                subject("Multiline Text Field"),
+                Row(
+                  children: [                      
+                    SizedBox(width: 20,),
+                    BasicTextField("Multiline Input", sampleController, multiline: true,)
+                  ],
+                ),
+              ]
+            ),
           ],
         ),
       ),
