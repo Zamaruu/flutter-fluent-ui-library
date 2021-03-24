@@ -125,7 +125,7 @@ class MainPage extends StatelessWidget {
                 Row(
                   children: [                      
                     SizedBox(width: 20,),
-                    DocumentCard("Large_File_Name.jpg", "Cercei", "Lannister", imgURL: "https://www.myremodeling.net/wp-content/uploads/2017/03/remodeling-the-living-roomshutterstock_360087893-min.jpg",)
+                    DocumentCard("Large_File_Name.jpg", "Cercei", "Lannister")
                   ],
                 ),
               ]

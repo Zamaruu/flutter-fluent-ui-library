@@ -1,3 +1,4 @@
+import 'package:fluent_ui_design/ui/fluentui/fluentpersona.dart';
 import 'package:flutter/material.dart';
 
 class DocumentCard extends StatefulWidget {
@@ -153,47 +154,7 @@ class _DocumentCardState extends State<DocumentCard> {
                             widget.filetitle,
                           ),
                         ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(right: 10.0),
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.grey[600],
-                                  radius: 15,
-                                  child: Center(
-                                    child: Text(
-                                      widget.creatorFirstName[0].toUpperCase() + widget.creatorLastName[0].toUpperCase(),
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.white
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "${widget.creatorFirstName} ${widget.creatorLastName}",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12
-                                    ),
-                                  ),
-                                  Text(
-                                    "Erstellt am ${widget.createdDate}",
-                                    style: TextStyle(
-                                      fontSize: 12
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
+                        PersonaWithSecondaryText(widget.creatorFirstName, widget.creatorLastName, "Erstellt am ${widget.createdDate}")
                       ],
                     ),
                   )
