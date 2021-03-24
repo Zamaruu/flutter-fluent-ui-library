@@ -299,6 +299,7 @@ class CommandButton extends StatelessWidget {
   final Color textColor;
   final Color backgroundColor;
   final GlobalKey _menuKey = new GlobalKey();
+  final IconData trailingIcon = Icons.keyboard_arrow_down;
 
   CommandButton(this.title,
       {Key key,
@@ -310,23 +311,26 @@ class CommandButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton(
       key: _menuKey,
-      //icon: Icon(Icons.keyboard_arrow_down, color: textColor),
-      child: DefaultButton(
+      child: ActionButton(
         title,
+        Icons.access_alarm,
+        traillingIcon: trailingIcon,
         onPressed: () {
           dynamic state = _menuKey.currentState;
           state.showButtonMenu();
         },
       ),
       offset: Offset(0, 40),
+      elevation: 0,
       itemBuilder: (context) => [
         PopupMenuItem(
           value: 1,
-          child: Text("First"),
+          child: CommandBarButton("Option 1", Icons.online_prediction),
         ),
         PopupMenuItem(
           value: 2,
-          child: Text("Second"),
+          child: CommandBarButton(
+              "Option 2", Icons.airline_seat_recline_extra_rounded),
         ),
       ],
     );
@@ -349,7 +353,7 @@ class ActionButton extends StatefulWidget {
 
 class _ActionButtonState extends State<ActionButton> {
   Color _textColor = Colors.black;
-  Color _iconColor = Colors.blue[800];
+  Color _iconColor = Colors.blue[700];
 
   onHover(PointerHoverEvent onHover) {
     setState(() {
@@ -361,7 +365,7 @@ class _ActionButtonState extends State<ActionButton> {
   onExit(PointerExitEvent onExit) {
     setState(() {
       _textColor = Colors.black;
-      _iconColor = Colors.blue[800];
+      _iconColor = Colors.blue[700];
     });
   }
 
@@ -391,8 +395,8 @@ class _ActionButtonState extends State<ActionButton> {
                     ? Container(
                         margin: const EdgeInsets.only(left: 5),
                         child: Icon(
-                          widget.leadingIcon,
-                          color: Colors.grey,
+                          widget.traillingIcon,
+                          color: Colors.grey[600],
                         ))
                     : Container()
               ],

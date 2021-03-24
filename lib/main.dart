@@ -15,11 +15,7 @@ class FluentUIDesign extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         appBarTheme: AppBarTheme(
-          color: Colors.white,
-          iconTheme: IconThemeData(
-            color: Colors.black
-          )
-        ),
+            color: Colors.white, iconTheme: IconThemeData(color: Colors.black)),
         primarySwatch: Colors.blue,
       ),
       home: MainPage(),
