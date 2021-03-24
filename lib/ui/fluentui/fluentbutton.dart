@@ -10,14 +10,15 @@ class DefaultButton extends StatelessWidget {
   final Color color;
   final Color textColor;
   final Color borderColor;
+  final Widget trailing;
   
   final BoxDecoration buttondecoration = new BoxDecoration(
     borderRadius: BorderRadius.circular(5),
   );
 
-  DefaultButton(this.title, {Key key,  this.icon, this.onPressed, this.color = const Color.fromRGBO(0, 120, 212, 1), this.textColor = Colors.white, this.border = false, this.borderColor}) : super(key: key);
+  DefaultButton(this.title, {Key key,  this.icon, this.onPressed, this.color = const Color.fromRGBO(0, 120, 212, 1), this.textColor = Colors.white, this.border = false, this.borderColor, this.trailing}) : super(key: key);
 
-  DefaultButton.standard(this.title, {Key key,  this.icon, this.onPressed, this.color = Colors.white, this.textColor = const Color.fromRGBO(64, 63, 62, 1), this.border = true, this.borderColor = Colors.black});
+  DefaultButton.standard(this.title, {Key key,  this.icon, this.onPressed, this.color = Colors.white, this.textColor = const Color.fromRGBO(64, 63, 62, 1), this.border = true, this.borderColor = Colors.black, this.trailing});
 
   @override
   Widget build(BuildContext context) {
@@ -37,26 +38,41 @@ class DefaultButton extends StatelessWidget {
       child: new Material(
         child: new InkWell(
           onTap: onPressed != null? onPressed: () {},
-          child: new Container(
-            padding: EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                icon != null? Icon(icon, color: textColor,): Container(),
-                Container(
-                  margin: EdgeInsets.only(left: icon != null? 5: 0),
-                  child: Text(
-                    title,
-                    style: TextStyle(
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    icon != null? Icon(icon, color: textColor,): Container(),
+                    Container(
+                      margin: EdgeInsets.only(left: icon != null? 5: 0),
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          color: textColor,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.3
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              trailing != null? 
+                SizedBox(
+                  width: 5,
+                  child: Center(
+                    child: Container(
                       color: textColor,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 0.3
+                      height: 25,
+                      width: 1.5,
                     ),
                   ),
-                ),
-              ],
-            ),
-            
+                ):Container(),
+              trailing != null? trailing: Container(), 
+            ],
           ),
         ),
         color: Colors.transparent,
@@ -193,6 +209,38 @@ class CommandBarButton extends StatelessWidget {
         ),
         color: Colors.transparent,
       ),
+    );
+  }
+}
+
+class ContextualMenuButton extends StatelessWidget {
+  final String title;
+  final Color textColor;
+  final Color backgroundColor;
+  
+  const ContextualMenuButton(this.title, {Key key, this.textColor = Colors.white, this.backgroundColor = Colors.blue}) : super(key: key);
+  
+  @override
+  Widget build(BuildContext context) {
+    return DefaultButton(
+      title,
+      textColor: textColor,
+      trailing: IconButton(
+        icon: Icon(Icons.keyboard_arrow_down, color: textColor,),
+        onPressed: () async {
+          await showMenu(
+            context: context, 
+            position: RelativeRect.fromLTRB(100, 100, 100, 100), 
+            items: [
+              PopupMenuItem<String>(
+                  child: const Text('Doge'), value: 'Doge'),
+              PopupMenuItem<String>(
+                  child: const Text('Lion'), value: 'Lion'),
+            ],
+            elevation: 8.0,
+          );
+        },
+      )
     );
   }
 }

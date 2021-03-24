@@ -26,11 +26,11 @@ class MainPage extends StatelessWidget {
   } 
     
 
-  Container detailTile(String title, List<Widget> elements){
+  Container detailTile(String title, double height, List<Widget> elements){
     return Container(
       margin: const EdgeInsets.all(25),
       color: Colors.grey[200],
-      height: 600,
+      height: height,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -62,6 +62,7 @@ class MainPage extends StatelessWidget {
           children: [
             detailTile(
               "Buttons",
+              500,
               [
                 subject("Default Button"),
                 Row(
@@ -90,10 +91,20 @@ class MainPage extends StatelessWidget {
                     CommandBarButton("Primary", Icons.mail_outline),
                   ],
                 ),
+                subject("Contextual Menu Button"),
+                Row(
+                  children: [                      
+                    SizedBox(width: 20,),
+                    ContextualMenuButton("Standard"),
+                    SizedBox(width: 20,),
+                    ContextualMenuButton("Longer Standard"),
+                  ],
+                ),
               ]
             ),
             detailTile(
-              "Text Fields", 
+              "Text Fields",
+              450, 
               [
                 subject("Basic Text Field"),
                 Row(
@@ -120,12 +131,20 @@ class MainPage extends StatelessWidget {
             ),
             detailTile(
               "Document Cards", 
+              600,
               [
                 subject("Default Document Card"),
                 Row(
                   children: [                      
                     SizedBox(width: 20,),
                     DocumentCard("Large_File_Name.jpg", "Cercei", "Lannister")
+                  ],
+                ),
+                subject("Compact Document Card"),
+                Row(
+                  children: [                      
+                    SizedBox(width: 20,),
+                    CompactDocumentCard("Large_File_Name.jpg", "Cercei", "Lannister")
                   ],
                 ),
               ]
