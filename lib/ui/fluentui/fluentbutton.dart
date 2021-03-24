@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class DefaultButton extends StatelessWidget {
@@ -297,8 +298,9 @@ class CommandButton extends StatelessWidget {
   final String title;
   final Color textColor;
   final Color backgroundColor;
+  final GlobalKey _menuKey = new GlobalKey();
 
-  const CommandButton(this.title,
+  CommandButton(this.title,
       {Key key,
       this.textColor = Colors.white,
       this.backgroundColor = Colors.blue})
@@ -306,23 +308,98 @@ class CommandButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultButton(title,
-        textColor: textColor,
-        leading: Container(
-          child: PopupMenuButton(
-            icon: Icon(Icons.keyboard_arrow_down, color: textColor),
-            offset: Offset(0, 40),
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 1,
-                child: Text("First"),
-              ),
-              PopupMenuItem(
-                value: 2,
-                child: Text("Second"),
-              ),
-            ],
+    return PopupMenuButton(
+      key: _menuKey,
+      //icon: Icon(Icons.keyboard_arrow_down, color: textColor),
+      child: DefaultButton(
+        title,
+        onPressed: () {
+          dynamic state = _menuKey.currentState;
+          state.showButtonMenu();
+        },
+      ),
+      offset: Offset(0, 40),
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          value: 1,
+          child: Text("First"),
+        ),
+        PopupMenuItem(
+          value: 2,
+          child: Text("Second"),
+        ),
+      ],
+    );
+  }
+}
+
+class ActionButton extends StatefulWidget {
+  final String title;
+  final IconData leadingIcon;
+  final IconData traillingIcon;
+  final Function onPressed;
+
+  const ActionButton(this.title, this.leadingIcon,
+      {Key key, this.traillingIcon, this.onPressed})
+      : super(key: key);
+
+  @override
+  _ActionButtonState createState() => _ActionButtonState();
+}
+
+class _ActionButtonState extends State<ActionButton> {
+  Color _textColor = Colors.black;
+  Color _iconColor = Colors.blue[800];
+
+  onHover(PointerHoverEvent onHover) {
+    setState(() {
+      _textColor = Colors.blue;
+      _iconColor = Colors.blue;
+    });
+  }
+
+  onExit(PointerExitEvent onExit) {
+    setState(() {
+      _textColor = Colors.black;
+      _iconColor = Colors.blue[800];
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: MouseRegion(
+        onHover: onHover,
+        onExit: onExit,
+        child: InkWell(
+          onTap: widget.onPressed ?? () {},
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Container(
+                    margin: const EdgeInsets.only(right: 5),
+                    child: Icon(
+                      widget.leadingIcon,
+                      color: _iconColor,
+                    )),
+                Text(
+                  widget.title,
+                  style: TextStyle(color: _textColor),
+                ),
+                widget.traillingIcon != null
+                    ? Container(
+                        margin: const EdgeInsets.only(left: 5),
+                        child: Icon(
+                          widget.leadingIcon,
+                          color: Colors.grey,
+                        ))
+                    : Container()
+              ],
+            ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
