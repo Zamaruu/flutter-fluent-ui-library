@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fluent_ui_design/ui/fluentui/fluentpersona.dart';
 import 'package:flutter/material.dart';
 
@@ -171,7 +173,7 @@ class _DocumentCardState extends State<DocumentCard> {
 
 class CompactDocumentCard extends StatefulWidget {
   final double height;
-  final double width;
+  double width;
   final String filetitle;
   final String createdDate;
   final String creatorFirstName;
@@ -180,7 +182,7 @@ class CompactDocumentCard extends StatefulWidget {
   final String imgAsset;
   final Function onPressed;
 
-  const CompactDocumentCard(
+  CompactDocumentCard(
     this.filetitle, 
     this.creatorFirstName, 
     this.creatorLastName,
@@ -203,6 +205,7 @@ class _CompactDocumentCardState extends State<CompactDocumentCard> {
   bool _isNetworkImage = false;
   bool _isAssetImage = false;
   bool _isFile = false;
+  bool _mobile;
 
   double _borderRadius = 1.0;
   double _borderWidth = 0.5;
@@ -249,9 +252,22 @@ class _CompactDocumentCardState extends State<CompactDocumentCard> {
       );
     }
   }
-  
+
+  void _isMobile(BuildContext context){
+    try{
+        if(Platform.isAndroid||Platform.isIOS) {
+            widget.width = MediaQuery.of(context).size.width * 0.8;
+            _mobile = true;
+        }
+    } catch(e){
+      widget.width = widget.width;
+      _mobile = false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    _isMobile(context);
     return new Container(
       width: widget.width,
       height: widget.height,
