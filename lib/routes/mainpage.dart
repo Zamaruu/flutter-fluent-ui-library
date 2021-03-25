@@ -1,6 +1,7 @@
 import 'package:fluent_ui_design/ui/fluentui/fluentbutton.dart';
 import 'package:fluent_ui_design/ui/fluentui/fluentdocumentcard.dart';
 import 'package:fluent_ui_design/ui/fluentui/fluenttextfield.dart';
+import 'package:fluent_ui_design/ui/fluentui/fluentuimodels.dart';
 import 'package:fluent_ui_design/ui/widgets/drawer.dart';
 import 'package:fluent_ui_design/ui/widgets/navigationappbar.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,12 @@ import 'package:flutter/material.dart';
 class MainPage extends StatelessWidget {
   TextStyle titleStyle = new TextStyle(color: Colors.black, fontSize: 25);
   TextEditingController sampleController = new TextEditingController();
+
+  List<CommandBarButtonModel> popUpButtons = [
+    new CommandBarButtonModel("title 1", Icons.toggle_off_rounded, () {}),
+    new CommandBarButtonModel("title 2", Icons.upload_outlined, () {}),
+    new CommandBarButtonModel("title 3", Icons.west, () {}),
+  ];
 
   Padding subject(String title) {
     return Padding(
@@ -91,6 +98,13 @@ class MainPage extends StatelessWidget {
                     width: 20,
                   ),
                   CommandBarButton("Primary", Icons.mail_outline),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  CommandBarPopUpButton(
+                    "Standard",
+                    popUpButtons
+                  ),
                 ],
               ),
               subject("Contextual Menu Button"),
@@ -99,20 +113,17 @@ class MainPage extends StatelessWidget {
                   SizedBox(
                     width: 20,
                   ),
-                  ContextualMenuButton("Standard"),
+                  SplitButton(
+                    "Standard",
+                    popUpButtons
+                  ),
                   SizedBox(
                     width: 20,
                   ),
-                  ContextualMenuButton("Longer Standard"),
-                ],
-              ),
-              subject("Command Button"),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 20,
+                  SplitButton(
+                    "Longer Standard",
+                    popUpButtons
                   ),
-                  CommandButton("Standard"),
                 ],
               ),
               subject("Action Button"),

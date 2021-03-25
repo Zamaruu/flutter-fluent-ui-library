@@ -1,5 +1,33 @@
+import 'package:fluent_ui_design/ui/fluentui/fluentuimodels.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+PopupMenuItem _popupItem(CommandBarButtonModel menuButton) {
+  return PopupMenuItem(
+    child: GestureDetector(
+      onTap: menuButton.onPressed ?? () {},
+      child: Container(
+        margin: EdgeInsets.only(right:  15),
+        child: Row(
+          children: [
+            Icon(
+              menuButton.icon,
+              size: 24,
+              color: Colors.blue[700],
+            ),
+            SizedBox(width: 7),
+            Text(
+              menuButton.title,
+              style: TextStyle(
+                color: Colors.grey[900], fontWeight: FontWeight.w500
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
 
 class DefaultButton extends StatelessWidget {
   final double borderradius = 1.0;
@@ -201,6 +229,7 @@ class CommandBarButton extends StatelessWidget {
 
   final String title;
   final IconData icon;
+  final IconData trailingIcon;
   final Function onPressed;
   final Color color;
   final Color textColor;
@@ -216,7 +245,7 @@ class CommandBarButton extends StatelessWidget {
       this.color = Colors.white,
       this.textColor = const Color.fromRGBO(64, 63, 62, 1),
       this.border = true,
-      this.borderColor = Colors.black});
+      this.borderColor = Colors.black, this.trailingIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -250,6 +279,14 @@ class CommandBarButton extends StatelessWidget {
                         letterSpacing: 0.3),
                   ),
                 ),
+                trailingIcon != null
+                    ? Container(
+                        margin: const EdgeInsets.only(left: 5),
+                        child: Icon(
+                          trailingIcon,
+                          color: Colors.grey[600],
+                        ))
+                    : Container()
               ],
             ),
           ),
@@ -260,61 +297,81 @@ class CommandBarButton extends StatelessWidget {
   }
 }
 
-class ContextualMenuButton extends StatelessWidget {
+class SplitButton extends StatelessWidget {
   final String title;
   final Color textColor;
   final Color backgroundColor;
+  final Function onPressed;
+  final List<CommandBarButtonModel> menuButtons;
+  
+  List<PopupMenuItem> _menuButtons = [];
 
-  const ContextualMenuButton(this.title,
+  SplitButton(this.title, this.menuButtons,
       {Key key,
       this.textColor = Colors.white,
-      this.backgroundColor = Colors.blue})
+      this.backgroundColor = Colors.blue, 
+      this.onPressed, 
+      })
       : super(key: key);
+
+  void _initMenuButtons(){
+    for (CommandBarButtonModel button in menuButtons) {
+      _menuButtons.add(_popupItem(button));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    _initMenuButtons();
     return DefaultButton(title,
-        textColor: textColor,
-        leading: Container(
-          child: PopupMenuButton(
-            icon: Icon(Icons.keyboard_arrow_down, color: textColor),
-            offset: Offset(0, 40),
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 1,
-                child: Text("First"),
-              ),
-              PopupMenuItem(
-                value: 2,
-                child: Text("Second"),
-              ),
-            ],
-          ),
-        ));
+      textColor: textColor,
+      onPressed: onPressed,
+      leading: Container(
+        child: PopupMenuButton(
+          icon: Icon(Icons.keyboard_arrow_down, color: textColor),
+          offset: Offset(0, 40),
+          itemBuilder: (context) => _menuButtons
+        ),
+      )
+    );
   }
 }
 
-class CommandButton extends StatelessWidget {
+class CommandBarPopUpButton extends StatelessWidget {
   final String title;
   final Color textColor;
   final Color backgroundColor;
   final GlobalKey _menuKey = new GlobalKey();
   final IconData trailingIcon = Icons.keyboard_arrow_down;
+  final List<CommandBarButtonModel> menuButtons;
+  
+  List<PopupMenuItem> _menuButtons = [];
 
-  CommandButton(this.title,
-      {Key key,
+  CommandBarPopUpButton(
+    this.title,
+    this.menuButtons,
+    {
+      Key key,
       this.textColor = Colors.white,
-      this.backgroundColor = Colors.blue})
-      : super(key: key);
+      this.backgroundColor = Colors.blue,
+    }
+  ) : super(key: key);
+
+  void _initMenuButtons(){
+    for (CommandBarButtonModel button in menuButtons) {
+      _menuButtons.add(_popupItem(button));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    _initMenuButtons();
     return PopupMenuButton(
       key: _menuKey,
-      child: ActionButton(
+      child: CommandBarButton(
         title,
         Icons.access_alarm,
-        traillingIcon: trailingIcon,
+        trailingIcon: trailingIcon,
         onPressed: () {
           dynamic state = _menuKey.currentState;
           state.showButtonMenu();
@@ -322,17 +379,7 @@ class CommandButton extends StatelessWidget {
       ),
       offset: Offset(0, 40),
       elevation: 0,
-      itemBuilder: (context) => [
-        PopupMenuItem(
-          value: 1,
-          child: CommandBarButton("Option 1", Icons.online_prediction),
-        ),
-        PopupMenuItem(
-          value: 2,
-          child: CommandBarButton(
-              "Option 2", Icons.airline_seat_recline_extra_rounded),
-        ),
-      ],
+      itemBuilder: (context) => _menuButtons,
     );
   }
 }
