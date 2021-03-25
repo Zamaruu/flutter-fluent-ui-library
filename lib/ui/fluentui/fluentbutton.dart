@@ -416,6 +416,13 @@ class _ActionButtonState extends State<ActionButton> {
     });
   }
 
+  onEnter(PointerEnterEvent onEnter){
+    setState(() {
+      _textColor = Colors.black;
+      _iconColor = Colors.blue[700];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

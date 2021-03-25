@@ -57,7 +57,7 @@ class MainPage extends StatelessWidget {
         isAlwaysShown: true,
         child: ListView(
           children: [
-            detailTile("Buttons", 600, [
+            detailTile("Buttons", 700, [
               subject("Default Button"),
               Row(
                 children: [
@@ -98,6 +98,10 @@ class MainPage extends StatelessWidget {
                     width: 20,
                   ),
                   CommandBarButton("Primary", Icons.mail_outline),
+                ],
+              ),
+              Row(
+                children: [
                   SizedBox(
                     width: 20,
                   ),
@@ -107,7 +111,7 @@ class MainPage extends StatelessWidget {
                   ),
                 ],
               ),
-              subject("Contextual Menu Button"),
+              subject("Command Bar PopUp Button"),
               Row(
                 children: [
                   SizedBox(
@@ -117,6 +121,13 @@ class MainPage extends StatelessWidget {
                     "Standard",
                     popUpButtons
                   ),
+                ],
+              ),
+              SizedBox(
+                    height: 20,
+                  ),
+              Row(
+                children: [
                   SizedBox(
                     width: 20,
                   ),
