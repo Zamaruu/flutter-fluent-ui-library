@@ -3,6 +3,7 @@ import 'package:fluent_ui_design/ui/fluentui/fluentdocumentcard.dart';
 import 'package:fluent_ui_design/ui/fluentui/fluentpanel.dart';
 import 'package:fluent_ui_design/ui/fluentui/fluenttextfield.dart';
 import 'package:fluent_ui_design/ui/fluentui/fluentuimodels.dart';
+import 'package:fluent_ui_design/ui/fluentui/fluentdialog.dart' as Dialog;
 import 'package:fluent_ui_design/ui/widgets/drawer.dart';
 import 'package:fluent_ui_design/ui/widgets/navigationappbar.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ import 'package:flutter/material.dart';
 class MainPage extends StatelessWidget {
   TextStyle titleStyle = new TextStyle(color: Colors.black, fontSize: 25);
   TextEditingController sampleController = new TextEditingController();
-  final _scaffoldKey = GlobalKey<ScaffoldState>(); 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<CommandBarButtonModel> popUpButtons = [
     new CommandBarButtonModel("title 1", Icons.toggle_off_rounded, () {}),
@@ -107,10 +108,7 @@ class MainPage extends StatelessWidget {
                   SizedBox(
                     width: 20,
                   ),
-                  CommandBarPopUpButton(
-                    "Standard",
-                    popUpButtons
-                  ),
+                  CommandBarPopUpButton("Standard", popUpButtons),
                 ],
               ),
               subject("Command Bar PopUp Button"),
@@ -119,24 +117,18 @@ class MainPage extends StatelessWidget {
                   SizedBox(
                     width: 20,
                   ),
-                  SplitButton(
-                    "Standard",
-                    popUpButtons
-                  ),
+                  SplitButton("Standard", popUpButtons),
                 ],
               ),
               SizedBox(
-                    height: 20,
-                  ),
+                height: 20,
+              ),
               Row(
                 children: [
                   SizedBox(
                     width: 20,
                   ),
-                  SplitButton(
-                    "Longer Standard",
-                    popUpButtons
-                  ),
+                  SplitButton("Longer Standard", popUpButtons),
                 ],
               ),
               subject("Action Button"),
@@ -207,7 +199,7 @@ class MainPage extends StatelessWidget {
                 ],
               ),
             ]),
-            detailTile("Document Cards", 600, [
+            detailTile("Panel", 100, [
               subject("Panel"),
               Row(
                 children: [
@@ -216,16 +208,33 @@ class MainPage extends StatelessWidget {
                   ),
                   DefaultButton.standard(
                     "Open Panel",
-                    onPressed: (){
+                    onPressed: () {
                       _scaffoldKey.currentState.openEndDrawer();
                       //Scaffold.of(context).openDrawer();
                     },
                   )
                 ],
               ),
-              
             ]),
-          
+            detailTile("Dialog", 100, [
+              subject("Dialog"),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 20,
+                  ),
+                  DefaultButton.standard(
+                    "Open Dialog",
+                    onPressed: () {
+                      Dialog.fluentDialog(context, "Fluent Dialog", Container(),
+                          actions: []);
+                      //_scaffoldKey.currentState.openEndDrawer();
+                      //Scaffold.of(context).openDrawer();
+                    },
+                  )
+                ],
+              ),
+            ]),
           ],
         ),
       ),
@@ -248,10 +257,16 @@ class MainPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             BasicTextField("Eingabe", sampleController),
-            SizedBox(height: 20,),
-            Text("Überall dieselbe alte Leier. Das Layout ist fertig, der Text lässt auf sich warten. Damit das Layout nun nicht nackt im Raume steht und sich klein und leer vorkommt, springe ich ein: der Blindtext. Genau zu diesem Zwecke erschaffen, immer im Schatten meines großen Bruders »Lorem Ipsum«, freue ich mich jedes Mal, wenn Sie ein paar Zeilen lesen. Denn esse est percipi - Sein ist wahrgenommen werden. Und weil Sie nun schon die Güte haben, mich ein paar weitere Sätze lang zu begleiten, möchte ich diese Gelegenheit nutzen, Ihnen nicht nur als Lückenfüller zu dienen, sondern auf etwas hinzuweisen, das es ebenso verdient wahrgenommen zu werden: Webstandards nämlich. Sehen Sie, Webstandards sind das Regelwerk, auf dem Webseiten aufbauen. So gibt es Regeln für HTML, CSS, JavaScript oder auch XML; Worte, die Sie vielleicht schon einmal von Ihrem Entwickler gehört haben. Diese Standards sorgen dafür, dass alle Beteiligten aus einer Webseite den größten Nutzen ziehen. Im Gegensatz zu früheren Webseiten müssen wir zum Beispiel nicht mehr zwei verschiedene Webseiten für den Internet Explorer und einen anderen Browser programmieren. Es reicht eine Seite, die - richtig angelegt - sowohl auf verschiedenen Browsern im Netz funktioniert, aber ebenso gut für den Ausdruck oder"),
-            SizedBox(height: 20,),
-            Text("Überall dieselbe alte Leier. Das Layout ist fertig, der Text lässt auf sich warten. Damit das Layout nun nicht nackt im Raume steht und sich klein und leer vorkommt, springe ich ein: der Blindtext. Genau zu diesem Zwecke erschaffen, immer im Schatten meines großen Bruders »Lorem Ipsum«, freue ich mich jedes Mal, wenn Sie ein paar Zeilen lesen. Denn esse est percipi - Sein ist wahrgenommen werden. Und weil Sie nun schon die Güte haben, mich ein paar weitere Sätze lang zu begleiten, möchte ich diese Gelegenheit nutzen, Ihnen nicht nur als Lückenfüller zu dienen, sondern auf etwas hinzuweisen, das es ebenso verdient wahrgenommen zu werden: Webstandards nämlich. Sehen Sie, Webstandards sind das Regelwerk, auf dem Webseiten aufbauen. So gibt es Regeln für HTML, CSS, JavaScript oder auch XML; Worte, die Sie vielleicht schon einmal von Ihrem Entwickler gehört haben. Diese Standards sorgen dafür, dass alle Beteiligten aus einer Webseite den größten Nutzen ziehen. Im Gegensatz zu früheren Webseiten müssen wir zum Beispiel nicht mehr zwei verschiedene Webseiten für den Internet Explorer und einen anderen Browser programmieren. Es reicht eine Seite, die - richtig angelegt - sowohl auf verschiedenen Browsern im Netz funktioniert, aber ebenso gut für den Ausdruck oder"),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+                "Überall dieselbe alte Leier. Das Layout ist fertig, der Text lässt auf sich warten. Damit das Layout nun nicht nackt im Raume steht und sich klein und leer vorkommt, springe ich ein: der Blindtext. Genau zu diesem Zwecke erschaffen, immer im Schatten meines großen Bruders »Lorem Ipsum«, freue ich mich jedes Mal, wenn Sie ein paar Zeilen lesen. Denn esse est percipi - Sein ist wahrgenommen werden. Und weil Sie nun schon die Güte haben, mich ein paar weitere Sätze lang zu begleiten, möchte ich diese Gelegenheit nutzen, Ihnen nicht nur als Lückenfüller zu dienen, sondern auf etwas hinzuweisen, das es ebenso verdient wahrgenommen zu werden: Webstandards nämlich. Sehen Sie, Webstandards sind das Regelwerk, auf dem Webseiten aufbauen. So gibt es Regeln für HTML, CSS, JavaScript oder auch XML; Worte, die Sie vielleicht schon einmal von Ihrem Entwickler gehört haben. Diese Standards sorgen dafür, dass alle Beteiligten aus einer Webseite den größten Nutzen ziehen. Im Gegensatz zu früheren Webseiten müssen wir zum Beispiel nicht mehr zwei verschiedene Webseiten für den Internet Explorer und einen anderen Browser programmieren. Es reicht eine Seite, die - richtig angelegt - sowohl auf verschiedenen Browsern im Netz funktioniert, aber ebenso gut für den Ausdruck oder"),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+                "Überall dieselbe alte Leier. Das Layout ist fertig, der Text lässt auf sich warten. Damit das Layout nun nicht nackt im Raume steht und sich klein und leer vorkommt, springe ich ein: der Blindtext. Genau zu diesem Zwecke erschaffen, immer im Schatten meines großen Bruders »Lorem Ipsum«, freue ich mich jedes Mal, wenn Sie ein paar Zeilen lesen. Denn esse est percipi - Sein ist wahrgenommen werden. Und weil Sie nun schon die Güte haben, mich ein paar weitere Sätze lang zu begleiten, möchte ich diese Gelegenheit nutzen, Ihnen nicht nur als Lückenfüller zu dienen, sondern auf etwas hinzuweisen, das es ebenso verdient wahrgenommen zu werden: Webstandards nämlich. Sehen Sie, Webstandards sind das Regelwerk, auf dem Webseiten aufbauen. So gibt es Regeln für HTML, CSS, JavaScript oder auch XML; Worte, die Sie vielleicht schon einmal von Ihrem Entwickler gehört haben. Diese Standards sorgen dafür, dass alle Beteiligten aus einer Webseite den größten Nutzen ziehen. Im Gegensatz zu früheren Webseiten müssen wir zum Beispiel nicht mehr zwei verschiedene Webseiten für den Internet Explorer und einen anderen Browser programmieren. Es reicht eine Seite, die - richtig angelegt - sowohl auf verschiedenen Browsern im Netz funktioniert, aber ebenso gut für den Ausdruck oder"),
           ],
         ),
         footerLeft: DefaultButton("Save"),
